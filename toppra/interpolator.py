@@ -301,6 +301,10 @@ class SplineInterpolator(Interpolator):
     def get_duration(self):
         return self.duration
 
+    # Consistent interface with TOPP
+    def Eval(self, ss_sam):
+        return self.eval(ss_sam)
+
     def eval(self, ss_sam):
         return self.cspl(ss_sam)
 
@@ -445,10 +449,6 @@ class PolynomialPath(Interpolator):
             return np.array(res).flatten()
         else:
             return np.array(res).T
-
-    # Consistent interface with TOPP
-    def Eval(self, ss_sam):
-        return self.eval(ss_sam)
 
     def evald(self, ss_sam):
         res = [poly(np.array(ss_sam)) for poly in self.polyd]
