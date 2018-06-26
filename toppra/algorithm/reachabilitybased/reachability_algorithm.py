@@ -68,6 +68,7 @@ class ReachabilityAlgorithm(ParameterizationAlgorithm):
         elif solver_wrapper.lower() == "qpoases":
             self.solver_wrapper = qpOASESSolverWrapper(self.constraints, self.path, self.gridpoints)
         elif solver_wrapper.lower() == "hotqpoases":
+            print("Checking")
             self.solver_wrapper = hotqpOASESSolverWrapper(self.constraints, self.path, self.gridpoints)
         elif solver_wrapper.lower() == "ecos":
             self.solver_wrapper = ecosWrapper(self.constraints, self.path, self.gridpoints)

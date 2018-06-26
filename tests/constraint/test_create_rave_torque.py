@@ -13,7 +13,7 @@ def barret_robot(rave_env):
 
 @pytest.mark.parametrize("dof", [3, 5, 7])
 def test_torque_bound_barret(barret_robot, dof):
-    barret_robot.SetActiveDOFs(range(dof))
+    barret_robot.SetActiveDOFs(list(range(dof)))
     constraint = toppra.create_rave_torque_path_constraint(barret_robot)
     np.random.seed(0)
     path = toppra.SplineInterpolator(np.linspace(0, 1, 5), np.random.rand(5, dof))

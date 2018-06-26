@@ -19,9 +19,9 @@ def robot_fixture():
     iktype = orpy.IkParameterization.Type.Transform6D
     ikmodel = orpy.databases.inversekinematics.InverseKinematicsModel(robot, iktype=iktype)
     if not ikmodel.load():
-        print 'Generating IKFast {0}. It will take few minutes...'.format(iktype.name)
+        print('Generating IKFast {0}. It will take few minutes...'.format(iktype.name))
         ikmodel.autogenerate()
-        print 'IKFast {0} has been successfully generated'.format(iktype.name)
+        print('IKFast {0} has been successfully generated'.format(iktype.name))
     # env.SetViewer('qtosg')
     toppra.setup_logging("INFO")
     yield robot
@@ -29,7 +29,7 @@ def robot_fixture():
 
 
 @pytest.mark.skipif(not FOUND_OPENRAVE, reason="Not found openrave installation")
-@pytest.mark.parametrize("seed", range(90, 100), ids=["Seed=" + str(i) for i in range(90, 100)])
+@pytest.mark.parametrize("seed", list(range(90, 100)), ids=["Seed=" + str(i) for i in range(90, 100)])
 def test_retime_kinematics_ravetraj(robot_fixture, seed):
     env = robot_fixture.GetEnv()
     basemanip = orpy.interfaces.BaseManipulation(robot_fixture)
@@ -65,7 +65,7 @@ def test_retime_kinematics_ravetraj(robot_fixture, seed):
 
 
 @pytest.mark.skipif(not FOUND_OPENRAVE, reason="Not found openrave installation")
-@pytest.mark.parametrize("seed", range(100, 110), ids=["Seed="+str(i) for i in range(100, 110)])
+@pytest.mark.parametrize("seed", list(range(100, 110)), ids=["Seed="+str(i) for i in range(100, 110)])
 def test_retime_kinematics_waypoints(robot_fixture, seed):
     dof = robot_fixture.GetActiveDOF()
 

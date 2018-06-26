@@ -30,6 +30,7 @@ def main():
     pc_vel = constraint.JointVelocityConstraint(vlim)
     pc_acc = constraint.JointAccelerationConstraint(
         alim, discretization_scheme=constraint.DiscretizationType.Interpolation)
+    print(path)
 
     # Setup a parametrization instance with hot-qpOASES
     instance = algo.TOPPRA([pc_vel, pc_acc], path, gridpoints=np.linspace(0, 1, 1001),

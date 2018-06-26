@@ -86,8 +86,8 @@ def main(env=None, test=False):
             traj_original, robot, output_interpolator=True, N=args['Ngrid'],
             additional_constraints=[pc_torque])
 
-        print("Original duration: {:.3f}. Retimed duration: {:3f}.".format(
-            traj_original.GetDuration(), traj_retimed.GetDuration()))
+        print(("Original duration: {:.3f}. Retimed duration: {:3f}.".format(
+            traj_original.GetDuration(), traj_retimed.GetDuration())))
 
         if args['verbose']:
             plot_trajectories(traj_original, traj_retimed, robot)

@@ -12,7 +12,7 @@ import toppra
 def env():
     env = orpy.Environment()
     env.Load('data/lab1.env.xml')
-    env.GetRobots()[0].SetActiveDOFs(range(7))
+    env.GetRobots()[0].SetActiveDOFs(list(range(7)))
     yield env
     env.Destroy()
 

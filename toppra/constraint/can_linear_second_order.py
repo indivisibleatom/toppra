@@ -69,16 +69,16 @@ class CanonicalLinearSecondOrderConstraint(CanonicalLinearConstraint):
         ps = path.evald(gridpoints)
         pss = path.evaldd(gridpoints)
 
-        F = np.array(map(self.cnst_F, p))
-        g = np.array(map(self.cnst_g, p))
+        F = np.array(list(map(self.cnst_F, p)))
+        g = np.array(list(map(self.cnst_g, p)))
         c = np.array(
-            map(lambda p_: self.inv_dyn(p_, v_zero, v_zero), p)
+            [self.inv_dyn(p_, v_zero, v_zero) for p_ in p]
         )
         a = np.array(
-            map(lambda (p_, ps_): self.inv_dyn(p_, v_zero, ps_), zip(p, ps))
+            [self.inv_dyn(p__ps_[0], v_zero, p__ps_[1]) for p__ps_ in zip(p, ps)]
         ) - c
         b = np.array(
-            map(lambda (p_, ps_, pss_): self.inv_dyn(p_, ps_, pss_), zip(p, ps, pss))
+            [self.inv_dyn(p__ps__pss_[0], p__ps__pss_[1], p__ps__pss_[2]) for p__ps__pss_ in zip(p, ps, pss)]
         ) - c
 
         if self.discretization_type == DiscretizationType.Collocation:
@@ -86,5 +86,5 @@ class CanonicalLinearSecondOrderConstraint(CanonicalLinearConstraint):
         elif self.discretization_type == DiscretizationType.Interpolation:
             return canlinear_colloc_to_interpolate(a, b, c, F, g, None, None, gridpoints)
         else:
-            raise NotImplementedError, "Other form of discretization not supported!"
+            raise NotImplementedError("Other form of discretization not supported!")
 

@@ -139,14 +139,14 @@ def smooth_singularities(pp, us, xs, vs=None):
     for index in singular_indices:
         idstart = max(0, index)
         idend = min(pp.N, index + 4)
-        xs_smth[range(idstart, idend + 1)] = (
+        xs_smth[list(range(idstart, idend + 1))] = (
             xs_smth[idstart] + (xs_smth[idend] - xs_smth[idstart]) *
             np.linspace(0, 1, idend + 1 - idstart))
         if vs is not None:
             data = [vs_smth[idstart] +
                     (xs_smth[idend] - xs_smth[idstart]) * frac
                     for frac in np.linspace(0, 1, idend + 1 - idstart)]
-            vs_smth[range(idstart, idend + 1)] = np.array(data)
+            vs_smth[list(range(idstart, idend + 1))] = np.array(data)
 
     for i in range(pp.N):
         us_smth[i] = (xs_smth[i + 1] - xs_smth[i]) / 2 / (pp.ss[i + 1] - pp.ss[i])
